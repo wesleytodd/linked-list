@@ -10,6 +10,7 @@ var remove = ll.remove;
 var get = ll.get;
 var reverse = ll.reverse;
 var length = ll.length;
+var splice = ll.splice;
 
 describe('LinkedList', function () {
 	it('should create a new linked list', function () {
@@ -109,5 +110,44 @@ describe('LinkedList', function () {
 		assert.equal(get(ll, 0).data, 'baz');
 		assert.equal(get(ll, 1).data, 'bar');
 		assert.equal(get(ll, 2).data, 'foo');
+	});
+
+	it('should splice in items', function () {
+		var ll = List('foo', 'bar', 'baz');
+		ll = splice(ll, 0, 0, 'foz');
+		assert.equal(get(ll, 0).data, 'foz');
+		assert.equal(get(ll, 1).data, 'foo');
+		assert.equal(get(ll, 2).data, 'bar');
+		assert.equal(get(ll, 3).data, 'baz');
+
+		ll = splice(ll, 0, 1, 'boz');
+		assert.equal(get(ll, 0).data, 'boz');
+		assert.equal(get(ll, 1).data, 'foo');
+		assert.equal(get(ll, 2).data, 'bar');
+		assert.equal(get(ll, 3).data, 'baz');
+
+		ll = splice(ll, 1, 0, 'far');
+		assert.equal(get(ll, 0).data, 'boz');
+		assert.equal(get(ll, 1).data, 'far');
+		assert.equal(get(ll, 2).data, 'foo');
+		assert.equal(get(ll, 3).data, 'bar');
+		assert.equal(get(ll, 4).data, 'baz');
+
+		ll = splice(ll, 1, 1, 'faz');
+		assert.equal(get(ll, 0).data, 'boz');
+		assert.equal(get(ll, 1).data, 'faz');
+		assert.equal(get(ll, 2).data, 'foo');
+		assert.equal(get(ll, 3).data, 'bar');
+		assert.equal(get(ll, 4).data, 'baz');
+
+		ll = splice(ll, 1, 3);
+		assert.equal(get(ll, 0).data, 'boz');
+		assert.equal(get(ll, 1).data, 'baz');
+
+		ll = splice(ll, 2, 0, 'foo', 'bar');
+		assert.equal(get(ll, 0).data, 'boz');
+		assert.equal(get(ll, 1).data, 'baz');
+		assert.equal(get(ll, 2).data, 'foo');
+		assert.equal(get(ll, 3).data, 'bar');
 	});
 });

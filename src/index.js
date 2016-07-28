@@ -77,18 +77,18 @@ export function remove (list, val) {
 	// Since this is a singly linked list,
 	// we need to keep a reference to the last
 	// seen node to link after removing
-	var last = null;
+	var prev = null;
 	var head = list;
 
 	while (head) {
 		if (head.data === val) {
-			if (last) {
-				last.next = head.next;
+			if (prev) {
+				prev.next = head.next;
 			} else {
 				list = head.next;
 			}
 		}
-		last = head;
+		prev = head;
 		head = head.next;
 	}
 
@@ -104,6 +104,48 @@ export function get (list, index) {
 		list = list.next;
 		i++;
 	}
+}
+
+export function splice (list, start, remove = 0, ...insert) {
+	var head = list;
+	var end = start + remove;
+	var i = 0;
+	var prev;
+	while (head) {
+		if (i === end) {
+			// Insert
+			let item;
+			while (item = insert.pop()) { // eslint-disable-line no-cond-assign
+				head = prepend(head, item);
+			}
+
+			if (prev) {
+				prev.next = head;
+			} else {
+				list = head;
+			}
+			break;
+		}
+
+		// Keep the last item in the
+		// first segment of the list
+		if (i < start) {
+			prev = head;
+		}
+
+		// Advance
+		i++;
+		head = head.next;
+
+		// Append on the end?
+		if (!head && i === end) {
+			let item;
+			while (item = insert.shift()) { // eslint-disable-line no-cond-assign
+				prev = append(prev, item);
+			}
+		}
+	}
+	return list;
 }
 
 export function reverse (list) {
