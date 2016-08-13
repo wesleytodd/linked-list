@@ -1,21 +1,23 @@
 /* global describe, it */
 var assert = require('assert');
-var ll = require('../');
-var List = ll.List;
-var tail = ll.tail;
-var append = ll.append;
-var prepend = ll.prepend;
-var forEach = ll.forEach;
-var remove = ll.remove;
-var get = ll.get;
-var reverse = ll.reverse;
-var length = ll.length;
-var splice = ll.splice;
+
+import {
+	List,
+	tail,
+	append,
+	prepend,
+	forEach,
+	remove,
+	get,
+	reverse,
+	length,
+	splice
+} from '../';
 
 describe('LinkedList', function () {
 	it('should create a new linked list', function () {
 		// From nothing
-		assert.equal(List(), null);
+		assert.equal(List().data, undefined);
 
 		// From the head balue
 		var list = List('foo');

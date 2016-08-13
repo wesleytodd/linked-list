@@ -1,7 +1,4 @@
 export function List (items) {
-	if (!items) {
-		return null;
-	}
 	if (arguments.length > 1) {
 		return listFromArray(arguments);
 	}
@@ -161,7 +158,11 @@ export function reverse (list) {
 }
 
 /*
-export function sort () {
+export function map (list, fnc) {
+	// @TODO
+};
+ *
+export function sort (list, fnc) {
 	// @TODO
 };
 
